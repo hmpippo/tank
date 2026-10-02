@@ -1,0 +1,33 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>经典坦克大战 · 网页版</title>
+    <link rel="stylesheet" href="css/style.css" />
+  </head>
+  <body>
+    <div class="game-container">
+      <canvas id="gameCanvas" width="480" height="480"></canvas>
+      <div class="info-panel">
+        <div class="score">得分 <span id="scoreDisplay">0</span></div>
+        <div class="lives">❤️ <span id="livesDisplay">3</span></div>
+        <button id="restartBtn">重新开始</button>
+        <button id="soundBtn">🔊 音效</button>
+      </div>
+    </div>
+
+    <!-- 按依赖顺序加载 -->
+    <script src="js/sound.js"></script>
+    <script src="js/config.js"></script>
+    <script src="js/utils.js"></script>
+    <script src="js/map.js"></script>
+    <script src="js/player.js"></script>
+    <script src="js/enemy.js"></script>
+    <script src="js/bullet.js"></script>
+    <script src="js/explosion.js"></script>
+    <script src="js/render.js"></script>
+    <script src="js/input.js"></script>
+    <script src="js/game.js"></script>
+  </body>
+</html>

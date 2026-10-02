@@ -1,0 +1,97 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    user-select: none;
+}
+body {
+    background: #1a1e1c;
+    min-height: 100vh;
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: "Courier New", monospace;
+    overflow: hidden;
+}
+.game-container {
+    background: #2b2b2b;
+    padding: 16px 16px 20px;
+    border-radius: 16px;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.6), inset 0 1px 4px rgba(255, 255, 255, 0.1);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    max-width: 98vw;
+    max-height: 98vh;
+}
+canvas {
+    background: #0a0f0c;
+    display: block;
+    border-radius: 8px;
+    border: 4px solid #4d5a4b;
+    box-shadow: inset 0 0 8px #000, 0 0 0 2px #2a3127;
+    image-rendering: crisp-edges;
+    image-rendering: pixelated;
+    width: min(85vh, 90vw);
+    height: min(85vh, 90vw);
+    max-width: 100%;
+    max-height: 100%;
+    aspect-ratio: 1 / 1;
+}
+.info-panel {
+    margin-top: 12px;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    color: #cbd8b2;
+    text-shadow: 0 2px 0 #0d0f0c;
+    font-weight: bold;
+    font-size: clamp(14px, 2.2vh, 22px);
+    letter-spacing: 2px;
+}
+.score,
+.lives {
+    background: #1e221c;
+    padding: 8px 22px;
+    border-radius: 30px;
+    border: 2px solid #5d6b53;
+    box-shadow: inset 0 1px 5px #00000055, 0 3px 0 #0e110d;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+.lives span {
+    color: #e6c35c;
+    font-size: 24px;
+    line-height: 1;
+}
+.score span {
+    color: #f0d87a;
+    font-size: 24px;
+    line-height: 1;
+    min-width: 4ch;
+    text-align: right;
+}
+button {
+    background: #3d4a36;
+    border: none;
+    border-bottom: 4px solid #1d231a;
+    color: #e2ebd3;
+    font-family: inherit;
+    font-weight: bold;
+    font-size: 18px;
+    padding: 8px 28px;
+    border-radius: 40px;
+    letter-spacing: 2px;
+    cursor: pointer;
+    box-shadow: inset 0 1px 4px #98a88b, 0 3px 0 #1b2117;
+    transition: all 0.06s ease;
+    text-shadow: 0 1px 0 #0f130e;
+}
+button:active {
+    transform: translateY(3px);
+    border-bottom-width: 2px;
+    box-shadow: inset 0 1px 4px #b1c0a3;
+}
