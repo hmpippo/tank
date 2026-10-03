@@ -2,7 +2,10 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover"
+    />
     <title>经典坦克大战 · 网页版</title>
     <link rel="stylesheet" href="css/style.css" />
   </head>
@@ -14,6 +17,22 @@
         <div class="lives">❤️ <span id="livesDisplay">3</span></div>
         <button id="restartBtn">重新开始</button>
         <button id="soundBtn">🔊 音效</button>
+        <button id="pauseBtn">⏸ 暂停</button>
+      </div>
+
+      <!-- 移动端虚拟按键 -->
+      <div class="mobile-controls" id="mobileControls">
+        <div class="dpad">
+          <button class="ctrl-btn" data-key="ArrowUp">▲</button>
+          <div class="dpad-row">
+            <button class="ctrl-btn" data-key="ArrowLeft">◀</button>
+            <button class="ctrl-btn" data-key="ArrowDown">▼</button>
+            <button class="ctrl-btn" data-key="ArrowRight">▶</button>
+          </div>
+        </div>
+        <div class="action-pad">
+          <button class="ctrl-btn fire-btn" data-key="Space">🔥</button>
+        </div>
       </div>
     </div>
 

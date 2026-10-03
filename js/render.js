@@ -91,6 +91,8 @@ function draw() {
     drawGameOver();
   } else if (!player.isAlive && lives > 0) {
     drawRespawnTip();
+  } else if (paused) {
+    drawPauseOverlay();
   }
 }
 
@@ -269,5 +271,25 @@ function drawRespawnTip() {
   ctx.shadowBlur = 12;
   ctx.shadowColor = "#000";
   ctx.fillText("等待重生...", canvas.width / 2, canvas.height / 2);
+  ctx.shadowBlur = 0;
+}
+
+function drawPauseOverlay() {
+  // 半透明黑遮罩
+  ctx.fillStyle = "rgba(0, 0, 0, 0.6)";
+  ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+  // 暂停文字
+  ctx.font = 'bold 42px "Courier New", monospace';
+  ctx.textAlign = "center";
+  ctx.textBaseline = "middle";
+  ctx.fillStyle = "#e6d96b";
+  ctx.shadowBlur = 16;
+  ctx.shadowColor = "#000";
+  ctx.fillText("暂停", canvas.width / 2, canvas.height / 2 - 20);
+
+  ctx.font = '18px "Courier New"';
+  ctx.fillStyle = "#ccc";
+  ctx.fillText("按 P 或 Esc 继续", canvas.width / 2, canvas.height / 2 + 40);
   ctx.shadowBlur = 0;
 }

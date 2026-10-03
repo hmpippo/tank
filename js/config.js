@@ -57,6 +57,7 @@ let base = {
 let score = 0;
 let lives = 3;
 let gameOver = false;
+let paused = false;
 let winFlag = false;
 let animationFrame = null;
 let frameCounter = 0;

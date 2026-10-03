@@ -20,6 +20,7 @@ function initGame() {
   lives = 3;
   gameOver = false;
   winFlag = false;
+  paused = false;
   updateScoreAndLives();
 
   generateBlocks();
@@ -32,7 +33,7 @@ function initGame() {
 }
 
 function gameLoop() {
-  if (!gameOver) {
+  if (!gameOver && !paused) {
     handlePlayerInput();
     updateEnemies();
     updateBullets();
@@ -63,6 +64,7 @@ function restartGame() {
   resetKeys();
   gameOver = false;
   winFlag = false;
+  paused = false;
   animationFrame = requestAnimationFrame(gameLoop);
 }
 
@@ -71,11 +73,17 @@ window.addEventListener("load", () => {
   const canvasEl = document.getElementById("gameCanvas");
   initRender(canvasEl);
   initInput();
+  initMobileControls();
   initAudio();
 
   document.getElementById("restartBtn").addEventListener("click", () => {
     resumeAudio(); // ← 用户点击时恢复音频
     restartGame();
+  });
+
+  document.getElementById("pauseBtn").addEventListener("click", () => {
+    resumeAudio();
+    togglePause();
   });
 
   document.getElementById("soundBtn").addEventListener("click", () => {
@@ -92,3 +100,17 @@ window.addEventListener("load", () => {
     if (animationFrame) cancelAnimationFrame(animationFrame);
   });
 });
+
+function togglePause() {
+  if (gameOver) return; // 游戏结束后不能暂停
+  paused = !paused;
+  // 暂停时清空按键状态，防止恢复后坦克“卡方向”
+  if (paused) {
+    resetKeys();
+  }
+  // 同步按钮文字
+  const btn = document.getElementById("pauseBtn");
+  if (btn) {
+    btn.textContent = paused ? "▶ 继续" : "⏸ 暂停";
+  }
+}
