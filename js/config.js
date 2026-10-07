@@ -76,3 +76,23 @@ const keys = {
   KeyD: false,
   Space: false,
 };
+
+// ---------- 道具 ----------
+let powerups = []; // 场上道具数组
+
+// 道具类型
+const POWERUP_SHIELD = 0;
+const POWERUP_FREEZE = 1;
+
+// 道具刷新
+const POWERUP_SPAWN_INTERVAL = 300; // 约5秒刷新一个（60帧 × 5）
+const POWERUP_MAX = 2; // 场上最多同时存在2个
+let powerupTimer = 0; // 计时器
+
+// 效果持续（帧数）
+const SHIELD_DURATION = 600; // 护盾持续 10 秒
+const FREEZE_DURATION = 300; // 冰冻持续 5 秒
+
+// 玩家效果状态
+let playerShield = 0; // 剩余护盾帧数，>0 表示有护盾
+let freezeTimer = 0; // 剩余冰冻帧数，>0 表示敌人被冻住

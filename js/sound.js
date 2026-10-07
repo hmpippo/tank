@@ -141,3 +141,21 @@ function playNoise(duration, volume) {
   source.start(now);
   source.stop(now + duration);
 }
+
+// 拾取护盾
+function sfxPowerupShield() {
+  playTone(660, 0.1, "square", 0.06);
+  setTimeout(() => playTone(990, 0.15, "square", 0.06), 80);
+}
+
+// 拾取冰冻
+function sfxPowerupFreeze() {
+  playTone(1200, 0.08, "sine", 0.06);
+  setTimeout(() => playTone(1600, 0.12, "sine", 0.06), 70);
+  setTimeout(() => playTone(2000, 0.15, "sine", 0.06), 140);
+}
+
+// 护盾破碎
+function sfxShieldBreak() {
+  playTone(300, 0.15, "sawtooth", 0.08);
+}

@@ -61,6 +61,11 @@ function draw() {
     }
   }
 
+  // 绘制道具
+  for (let p of powerups) {
+    drawPowerup(p);
+  }
+
   // 老家基地
   drawBase();
 
@@ -73,6 +78,11 @@ function draw() {
   // 玩家
   if (player.isAlive) {
     drawPlayer();
+  }
+
+  // 玩家护盾光环
+  if (player.isAlive && playerShield > 0) {
+    drawShieldAura();
   }
 
   // 子弹
@@ -126,6 +136,43 @@ function drawBase() {
 function drawEnemy(e) {
   const x = e.x * TILE_SIZE + OFFSET;
   const y = e.y * TILE_SIZE + OFFSET;
+
+  // ===== 冰冻时全部变蓝白 =====
+  const frozen = freezeTimer > 0;
+
+  if (frozen) {
+    // 冰霜覆盖效果
+    ctx.fillStyle = "#6ab8e8";
+    ctx.fillRect(x, y, TANK_SIZE, TANK_SIZE);
+    ctx.fillStyle = "#3a7ab8";
+    ctx.fillRect(x + 4, y + 4, TANK_SIZE - 8, TANK_SIZE - 8);
+
+    // 炮塔
+    ctx.fillStyle = "#c8ecff";
+    const cx = x + TANK_SIZE / 2;
+    const cy = y + TANK_SIZE / 2;
+    if (e.dir === "up") ctx.fillRect(cx - 3, y - 4, 6, 14);
+    else if (e.dir === "down") ctx.fillRect(cx - 3, y + TANK_SIZE - 10, 6, 14);
+    else if (e.dir === "left") ctx.fillRect(x - 4, cy - 3, 14, 6);
+    else if (e.dir === "right") ctx.fillRect(x + TANK_SIZE - 10, cy - 3, 14, 6);
+
+    // 履带
+    ctx.fillStyle = "#2a4a6a";
+    ctx.fillRect(x, y + 6, 4, TANK_SIZE - 12);
+    ctx.fillRect(x + TANK_SIZE - 4, y + 6, 4, TANK_SIZE - 12);
+
+    // 精英血条
+    if (e.type === ENEMY_TYPE_ELITE) {
+      const barWidth = TANK_SIZE;
+      const barHeight = 4;
+      ctx.fillStyle = "#333";
+      ctx.fillRect(x, y - 8, barWidth, barHeight);
+      ctx.fillStyle = "#e74c3c";
+      ctx.fillRect(x, y - 8, barWidth * (e.hp / 3), barHeight);
+    }
+
+    return; // 冰冻状态画完就返回，不画普通颜色
+  }
 
   if (e.type === ENEMY_TYPE_ELITE) {
     ctx.fillStyle = "#9c4a9e";
@@ -292,4 +339,70 @@ function drawPauseOverlay() {
   ctx.fillStyle = "#ccc";
   ctx.fillText("按 P 或 Esc 继续", canvas.width / 2, canvas.height / 2 + 40);
   ctx.shadowBlur = 0;
+}
+
+// ---------- 道具绘制 ----------
+function drawPowerup(p) {
+  const x = p.x * TILE_SIZE;
+  const y = p.y * TILE_SIZE;
+  const cx = x + TILE_SIZE / 2;
+  const cy = y + TILE_SIZE / 2;
+  // 上下浮动动画
+  const float = Math.sin(p.frame * 0.1) * 3;
+
+  if (p.type === POWERUP_SHIELD) {
+    // 护盾：蓝色圆环
+    ctx.beginPath();
+    ctx.arc(cx, cy + float, 10, 0, Math.PI * 2);
+    ctx.strokeStyle = "#4aa3ff";
+    ctx.lineWidth = 3;
+    ctx.stroke();
+
+    ctx.beginPath();
+    ctx.arc(cx, cy + float, 6, 0, Math.PI * 2);
+    ctx.fillStyle = "rgba(74, 163, 255, 0.4)";
+    ctx.fill();
+
+    // 小亮点
+    ctx.beginPath();
+    ctx.arc(cx - 3, cy - 3 + float, 2, 0, Math.PI * 2);
+    ctx.fillStyle = "#b8dcff";
+    ctx.fill();
+  } else if (p.type === POWERUP_FREEZE) {
+    // 冰冻：雪花
+    ctx.strokeStyle = "#9de8ff";
+    ctx.lineWidth = 2;
+    for (let a = 0; a < 6; a++) {
+      const angle = (a / 6) * Math.PI * 2 + p.frame * 0.02;
+      ctx.beginPath();
+      ctx.moveTo(cx, cy + float);
+      ctx.lineTo(cx + Math.cos(angle) * 10, cy + float + Math.sin(angle) * 10);
+      ctx.stroke();
+    }
+    // 中心
+    ctx.beginPath();
+    ctx.arc(cx, cy + float, 3, 0, Math.PI * 2);
+    ctx.fillStyle = "#e0f7ff";
+    ctx.fill();
+  }
+}
+
+// ---------- 玩家护盾光环 ----------
+function drawShieldAura() {
+  const x = player.x * TILE_SIZE + OFFSET + TANK_SIZE / 2;
+  const y = player.y * TILE_SIZE + OFFSET + TANK_SIZE / 2;
+  const time = Date.now() * 0.005;
+  const radius = 18 + Math.sin(time) * 2;
+
+  ctx.beginPath();
+  ctx.arc(x, y, radius, 0, Math.PI * 2);
+  ctx.strokeStyle = `rgba(74, 163, 255, ${0.5 + Math.sin(time) * 0.3})`;
+  ctx.lineWidth = 3;
+  ctx.stroke();
+
+  ctx.beginPath();
+  ctx.arc(x, y, radius - 3, 0, Math.PI * 2);
+  ctx.strokeStyle = `rgba(150, 210, 255, ${0.3 + Math.sin(time) * 0.2})`;
+  ctx.lineWidth = 1;
+  ctx.stroke();
 }

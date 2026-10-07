@@ -72,12 +72,21 @@ function checkBulletHitAt(b, x, y, bulletIndex) {
     player.x === x &&
     player.y === y
   ) {
+    bullets.splice(bulletIndex, 1); // 子弹消失
+
+    // 有护盾 → 免疫这次伤害
+    if (playerShield > 0) {
+      playerShield = 0; // 护盾破掉
+      sfxShieldBreak && sfxShieldBreak();
+      return true;
+    }
+
+    // 无护盾 → 正常受伤
     createExplosion(player.x, player.y);
     sfxPlayerHit();
     player.isAlive = false;
     lives--;
     updateScoreAndLives();
-    bullets.splice(bulletIndex, 1);
 
     if (lives <= 0) {
       gameOver = true;

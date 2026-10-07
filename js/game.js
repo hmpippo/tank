@@ -15,6 +15,7 @@ function initGame() {
 
   bullets = [];
   explosions = [];
+  resetPowerups();
 
   score = 0;
   lives = 3;
@@ -38,6 +39,7 @@ function gameLoop() {
     updateEnemies();
     updateBullets();
     updateExplosions();
+    updatePowerups();
 
     if (!player.isAlive && lives > 0) {
       respawnPlayer();

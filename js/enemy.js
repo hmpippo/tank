@@ -79,6 +79,9 @@ function enemyShoot(enemy) {
 }
 
 function updateEnemies() {
+  // ===== 冰冻：敌人全部停止行动 =====
+  if (freezeTimer > 0) return;
+
   for (let i = 0; i < enemies.length; i++) {
     const e = enemies[i];
     if (!e.alive) continue;
