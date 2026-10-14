@@ -11,27 +11,50 @@
   </head>
   <body>
     <div class="game-container">
-      <canvas id="gameCanvas" width="480" height="480"></canvas>
-      <div class="info-panel">
-        <div class="score">得分 <span id="scoreDisplay">0</span></div>
-        <div class="lives">❤️ <span id="livesDisplay">3</span></div>
-        <button id="restartBtn">重新开始</button>
-        <button id="soundBtn">🔊 音效</button>
-        <button id="pauseBtn">⏸ 暂停</button>
+      <div class="canvas-wrap">
+        <canvas id="gameCanvas" width="480" height="480"></canvas>
       </div>
 
-      <!-- 移动端虚拟按键 -->
-      <div class="mobile-controls" id="mobileControls">
-        <div class="dpad">
-          <button class="ctrl-btn" data-key="ArrowUp">▲</button>
-          <div class="dpad-row">
-            <button class="ctrl-btn" data-key="ArrowLeft">◀</button>
-            <button class="ctrl-btn" data-key="ArrowDown">▼</button>
-            <button class="ctrl-btn" data-key="ArrowRight">▶</button>
-          </div>
+      <div class="info-panel">
+        <div class="panel-title">坦克大战</div>
+
+        <div class="stat">
+          <span class="stat-label">得分</span>
+          <span class="stat-value" id="scoreDisplay">0</span>
         </div>
-        <div class="action-pad">
-          <button class="ctrl-btn fire-btn" data-key="Space">🔥</button>
+
+        <div class="stat">
+          <span class="stat-label">生命</span>
+          <span class="stat-value" id="livesDisplay">❤️ 3</span>
+        </div>
+
+        <div class="panel-buttons">
+          <button id="pauseBtn">⏸ 暂停</button>
+          <button id="restartBtn">🔄 重新开始</button>
+          <button id="fullscreenBtn">⛶ 全屏</button>
+          <button id="soundBtn">🔊 音效</button>
+        </div>
+
+        <div class="panel-hint">
+          <p><b>操作</b></p>
+          <p>↑↓←→ / WASD 移动</p>
+          <p>空格 射击</p>
+          <p>P / Esc 暂停</p>
+        </div>
+
+        <!-- 移动端虚拟按键（窄屏时显示在画布下方） -->
+        <div class="mobile-controls" id="mobileControls">
+          <div class="dpad">
+            <button class="ctrl-btn" data-key="ArrowUp">▲</button>
+            <div class="dpad-row">
+              <button class="ctrl-btn" data-key="ArrowLeft">◀</button>
+              <button class="ctrl-btn" data-key="ArrowDown">▼</button>
+              <button class="ctrl-btn" data-key="ArrowRight">▶</button>
+            </div>
+          </div>
+          <div class="action-pad">
+            <button class="ctrl-btn fire-btn" data-key="Space">🔥</button>
+          </div>
         </div>
       </div>
     </div>

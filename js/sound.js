@@ -159,3 +159,24 @@ function sfxPowerupFreeze() {
 function sfxShieldBreak() {
   playTone(300, 0.15, "sawtooth", 0.08);
 }
+
+// 拾取老家加固
+function sfxPowerupFortify() {
+  playTone(500, 0.08, "square", 0.06);
+  setTimeout(() => playTone(750, 0.08, "square", 0.06), 60);
+  setTimeout(() => playTone(1000, 0.12, "square", 0.06), 120);
+}
+
+// 过关
+function sfxLevelClear() {
+  const notes = [523, 659, 784, 1047];
+  notes.forEach((f, i) => {
+    setTimeout(() => playTone(f, 0.12, "square", 0.07), i * 100);
+  });
+}
+
+// 奖励生命
+function sfxExtraLife() {
+  playTone(880, 0.1, "square", 0.07);
+  setTimeout(() => playTone(1320, 0.15, "square", 0.07), 100);
+}
